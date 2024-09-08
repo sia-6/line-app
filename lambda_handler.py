@@ -1,9 +1,8 @@
-import json
-import logging
 import os
 import sys
-import uuid
+import json
 import boto3
+import logging
 import datetime
 
 #split_list = [x for x in text.split('\n') if x]
@@ -32,7 +31,15 @@ if CHANNEL_SECRET is None:
 line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 
-help_message = "D : Daily necessities\nF : Food\nE : Eating out\nT : Transportation expenses"
+item_name = {
+    "D": "Daily necessities",
+    "F": "Food",
+    "E": "Eating out",
+    "T": "Transportation expenses"
+}
+help_message = "Write the initial letter of the item name (lowercase or uppercase) on the first line and the price on the second line.\n[Item name]"
+for i in item_name.values():
+    help_message += "\n- " + i
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -41,19 +48,23 @@ def handle_message(event):
     if message == 'help':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=help_message))
     else:
-        mes = message.split()
-        table.put_item(
-            Item={
-                'date': str(datetime.date.today()),
-                'item_name': mes[0],
-                'price': mes[1]
-            }
-        )
-        # list = event.message.text.split()
-        # res = ''
-        # for s in list:
-        #     res += s + '\n'
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=message))
+        message_list = message.split()
+        if len(message_list) != 2:
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=help_message))
+        else:
+            initial_letter = message_list[0].upper()
+            try:
+                item_name[initial_letter]
+                table.put_item(
+                    Item={
+                        'date': str(datetime.date.today()),
+                        'item_name': item_name[initial_letter],
+                        'price': message_list[1]
+                    }
+                )
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=message_list[0]))
+            except:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Enter the correct product name."))
 
 def lambda_handler(event, context):
     if 'x-line-signature' in event['headers']:
