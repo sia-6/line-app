@@ -4,13 +4,9 @@ import json
 import boto3
 import logging
 import datetime
-
-#split_list = [x for x in text.split('\n') if x]
-
 from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError, LineBotApiError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
-
 
 dynamodb = boto3.resource('dynamodb')
 table = dynamodb.Table('test2')
@@ -32,20 +28,20 @@ line_bot_api = LineBotApi(CHANNEL_ACCESS_TOKEN)
 handler = WebhookHandler(CHANNEL_SECRET)
 
 item_name = {
-    "D": "Daily necessities",
-    "F": "Food",
-    "E": "Eating out",
-    "T": "Transportation expenses"
+    'D': 'Daily necessities',
+    'F': 'Food',
+    'E': 'Eating out',
+    'T': 'Transportation expenses'
 }
-help_message = "Write the initial letter of the item name (lowercase or uppercase) on the first line and the price on the second line.\n[Item name]"
+help_message = 'Write the initial letter of the item name (lowercase or uppercase) on the first line and the price on the second line.\n[Item name]'
 for i in item_name.values():
-    help_message += "\n- " + i
+    help_message += '\n- ' + i
 
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     message = event.message.text
 
-    if message == 'help':
+    if message == 'h' or message == 'help':
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=help_message))
     else:
         message_list = message.split()
@@ -59,20 +55,20 @@ def handle_message(event):
                     Item={
                         'date': str(datetime.date.today()),
                         'item_name': item_name[initial_letter],
-                        'price': message_list[1]
+                        'price': message_list[1],
+                        'user_id': event.source.user_id
                     }
                 )
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=message_list[0]))
             except:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text="Enter the correct product name."))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text='Enter the correct product name.'))
 
 def lambda_handler(event, context):
+    body = event['body']
+
+    logger.info(body)
     if 'x-line-signature' in event['headers']:
         signature = event['headers']['x-line-signature']
-
-    body = event['body']
-    logger.info(body)
-
     try:
         handler.handle(body, signature)
     except InvalidSignatureError:
