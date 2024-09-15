@@ -137,7 +137,6 @@ https://note.com/flymywife/n/n89cb8671d478
 3. **DynamoDBテーブルの設定**  
    DynamoDBでは、テーブル名とパーティションキーを設定して後はデフォルトでOKです。
 <img width="1038" alt="スクリーンショット 2024-09-15 13 19 45" src="https://github.com/user-attachments/assets/e6240dba-086f-4cea-b02d-ac1478eeef66">
-
 <img width="1146" alt="スクリーンショット 2024-09-15 13 20 47" src="https://github.com/user-attachments/assets/95953a53-15d8-45f3-b848-f20aca0b4c1a">
 
 ### LINEで入力
@@ -145,8 +144,8 @@ https://note.com/flymywife/n/n89cb8671d478
 - hまたはhelpでヘルプメッセージを出力
 - 項目と金額を入力
 - 不正な値の入力
-![IMG_4753](https://github.com/user-attachments/assets/04acfe40-31ba-47b9-b628-6a7450cc0fef width="300")
-![IMG_4754](https://github.com/user-attachments/assets/b755b910-ba31-4b14-a63e-c28d13887d03 width="300")
+<img width="300" alt="スクリーンショット 2024-09-15 13 20 47" src="https://github.com/user-attachments/assets/04acfe40-31ba-47b9-b628-6a7450cc0fef">
+<img width="300" alt="スクリーンショット 2024-09-15 13 20 47" src="https://github.com/user-attachments/assets/b755b910-ba31-4b14-a63e-c28d13887d03">
 
 #### DynamoDBテーブルを確認する
 DynamoDB>項目を探索>"テーブル名"を開くとテーブルにデータが保存されているのがわかります。
