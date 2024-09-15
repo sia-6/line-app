@@ -145,8 +145,8 @@ https://note.com/flymywife/n/n89cb8671d478
 - hまたはhelpでヘルプメッセージを出力
 - 項目と金額を入力
 - 不正な値の入力
-![IMG_4753](https://github.com/user-attachments/assets/04acfe40-31ba-47b9-b628-6a7450cc0fef)
-![IMG_4754](https://github.com/user-attachments/assets/b755b910-ba31-4b14-a63e-c28d13887d03)
+![IMG_4753](https://github.com/user-attachments/assets/04acfe40-31ba-47b9-b628-6a7450cc0fef width="300")
+![IMG_4754](https://github.com/user-attachments/assets/b755b910-ba31-4b14-a63e-c28d13887d03 width="300")
 
 #### DynamoDBテーブルを確認する
 DynamoDB>項目を探索>"テーブル名"を開くとテーブルにデータが保存されているのがわかります。
