@@ -34,7 +34,9 @@ handler = WebhookHandler(CHANNEL_SECRET)
 
 # 家計簿項目の初期データ
 item_name = {
+        'P': 'Pet',
         'F': 'Food',
+        'O': 'Others',
         'U': 'Utility',
         'I': 'Internet',
         'C': 'Clothing',
